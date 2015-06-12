@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Usage:
     ccal
     ccal <year>
