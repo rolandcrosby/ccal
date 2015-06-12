@@ -23,7 +23,6 @@ def write_cal(start, end, dest=sys.stdout):
 
 if __name__ == "__main__":
     args = docopt(__doc__)
-    print args
     if args['<year>'] is not None:
         year = int(args['<year>'])
         if args['<month>'] is not None:
