@@ -9,12 +9,17 @@ import calendar
 import sys
 import os
 from docopt import docopt
+import colors   # https://pypi.python.org/pypi/ansicolors/
 
 def write_cal(start, end, dest=sys.stdout):
     day = start - datetime.timedelta(start.isoweekday() % 7)
     end = end + datetime.timedelta(7 - end.isoweekday())
+    today = datetime.date.today()
     while day < end:
-        dest.write('{:>3}'.format(day.day))
+        day_string = '{:>3}'.format(day.day)
+        if day == today:
+            day_string = colors.red(day_string)  
+        dest.write(day_string)
         if day.isoweekday() == 6:
             if day.day < 8:
                 dest.write('  {0}'.format(calendar.month_name[day.month]))
