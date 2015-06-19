@@ -41,13 +41,13 @@ def main():
             start = datetime.date(year, 1, 1)
             end = datetime.date(year, 12, 31)
     else:
-        rows = int(os.popen('stty size', 'r').read().split()[0])
+        rows = int(os.popen('stty size', 'r').read().split()[0]) - 2
         if rows == 0:
-            rows = 25
+            rows = 52
         today = datetime.date.today()
         start = datetime.date(today.year, today.month, 1)
         start = start - datetime.timedelta(start.isoweekday() % 7)
-        end = start + datetime.timedelta(7 * (rows - 1))
+        end = start + datetime.timedelta(7 * rows)
     write_cal(start, end)
 
 if __name__ == "__main__":
