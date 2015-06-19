@@ -18,15 +18,18 @@ def write_cal(start, end, dest=sys.stdout):
     while day < end:
         day_string = '{:>3}'.format(day.day)
         if day == today:
-            day_string = colors.red(day_string)  
+            day_string = colors.red(day_string)
         dest.write(day_string)
         if day.isoweekday() == 6:
             if day.day < 8:
-                dest.write('  {0}'.format(calendar.month_name[day.month]))
+                out = '  {0}'.format(calendar.month_name[day.month])
+                if day.month == 1:
+                    out = out + ' {0}'.format(day.year)
+                dest.write(out)
             dest.write('\n')
         day += datetime.timedelta(1)
 
-if __name__ == "__main__":
+def main():
     args = docopt(__doc__)
     if args['<year>'] is not None:
         year = int(args['<year>'])
@@ -42,7 +45,10 @@ if __name__ == "__main__":
         if rows == 0:
             rows = 25
         today = datetime.date.today()
-        start = today - datetime.timedelta(today.isoweekday() % 7)
+        start = datetime.date(today.year, today.month, 1)
+        start = start - datetime.timedelta(start.isoweekday() % 7)
         end = start + datetime.timedelta(7 * (rows - 1))
     write_cal(start, end)
 
+if __name__ == "__main__":
+    main()
