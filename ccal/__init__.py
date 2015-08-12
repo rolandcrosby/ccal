@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Usage:
     ccal
     ccal <year>
@@ -49,6 +48,3 @@ def main():
         start = start - datetime.timedelta(start.isoweekday() % 7)
         end = start + datetime.timedelta(7 * rows)
     write_cal(start, end)
-
-if __name__ == "__main__":
-    main()
